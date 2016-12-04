@@ -30,9 +30,6 @@ public class MainClassTree {
 		searchTree.postOrderTraversal();
 		searchTree.postOrderTraversalStackWay();
 		
-		searchTree.levelOrderTraversal();
-		
-		
 		searchTree.levelOrderTraversalByCoRecursion();
 		
 		searchTree.height();
