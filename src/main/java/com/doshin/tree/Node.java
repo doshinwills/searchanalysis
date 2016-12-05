@@ -3,6 +3,8 @@ package com.doshin.tree;
 public class Node {
 
 	private int value;
+
+	private Node parent;
 	private Node leftNode;
 	private Node rightNode;
 
@@ -48,6 +50,16 @@ public class Node {
 		this.rightNode = rightNode;
 	}
 	
+	
+	
+	public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
+	}
+
 	public String toString() {
 		return "" + value;
 	}
