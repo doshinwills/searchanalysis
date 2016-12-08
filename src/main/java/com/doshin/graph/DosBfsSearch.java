@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
-import java.util.Stack;
 
-public class DosDfsSearch<V> {
+public class DosBfsSearch<V> {
 
 	DosGraph<V> graph;
-	Stack<V> nextVisit;
+	Queue<V> nextVisit;
 	Set<V> visited;
 	Map<V, V> parent;
 
-	public DosDfsSearch(DosGraph<V> graph) {
+	public DosBfsSearch(DosGraph<V> graph) {
 		this.graph = graph;
-		nextVisit = new Stack<V>();
+		nextVisit = new LinkedList<V>();
 		visited = new HashSet<V>();
 		parent = new HashMap<V, V>();
 	}
@@ -30,7 +31,7 @@ public class DosDfsSearch<V> {
 		V currentNode = null;
 
 		while (!nextVisit.isEmpty()) {
-			currentNode = nextVisit.pop();
+			currentNode = nextVisit.remove();
 			if (currentNode.equals(to)) {
 				pathExists = true;
 				break;
