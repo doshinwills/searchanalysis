@@ -32,12 +32,14 @@ public class BinarySearchTree {
 					throw new IllegalArgumentException("Element already exists");
 				} else if (checkNext.getValue() < element.getValue()) {
 					if (checkNext.getRightNode() == null) {
+						element.setParent(checkNext);
 						checkNext.setRightNode(element);
 					} else {
 						checkNext = checkNext.getRightNode();
 					}
 				} else if (element.getValue() < checkNext.getValue()) {
 					if (checkNext.getLeftNode() == null) {
+						element.setParent(checkNext);
 						checkNext.setLeftNode(element);
 					} else {
 						checkNext = checkNext.getLeftNode();
@@ -55,6 +57,10 @@ public class BinarySearchTree {
 			insert(root, element);
 		}
 
+	}
+	
+	public void delete(int value) {
+		BT07DeleteNodeTree.delete(root, value);
 	}
 
 	
@@ -93,6 +99,10 @@ public class BinarySearchTree {
 		System.out.println("\nPost Order Traversal Stack way is");
 		BT03PostOrderTraversal.postOrderTraversalStackWay(root);
 		System.out.println("");
+	}
+	
+	public void levelOrderTraversal() {
+		BT04LevelOrderTraversal.levelOrderTraversal(root);
 	}
 
 	public void levelOrderTraversalByCoRecursion() {
@@ -141,12 +151,14 @@ public class BinarySearchTree {
 	private void insert(Node current, Node element) {
 		if (element.getValue() < current.getValue()) {
 			if (current.getLeftNode() == null) {
+				element.setParent(current);
 				current.setLeftNode(element);
 			} else {
 				insert(current.getLeftNode(), element);
 			}
 		} else if (current.getValue() < element.getValue()) {
 			if (current.getRightNode() == null) {
+				element.setParent(current);
 				current.setRightNode(element);
 			} else {
 				insert(current.getRightNode(), element);
@@ -154,10 +166,6 @@ public class BinarySearchTree {
 		} else {
 			throw new IllegalArgumentException("Element already exists");
 		}
-	}
-
-	public void delete() {
-
 	}
 
 
