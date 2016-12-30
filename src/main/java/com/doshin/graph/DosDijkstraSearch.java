@@ -26,10 +26,16 @@ public class DosDijkstraSearch<V> {
 	public List<V> dijkstraSearch(V from, V to) {
 
 		boolean pathExists = false;
-		nextVisit.add(new WeightedPathNode<V>(from, 0));
 		V current = null;
 		List<V> path = new ArrayList<V>();
+		nextVisit.add(new WeightedPathNode<V>(from, 0));
+		List<WeightedPathNode<V>> allNodes = new ArrayList<WeightedPathNode<V>>();
+		
 
+		for(V node : graph.getAllNodes()) {
+			allNodes.add(new WeightedPathNode<V>(node, Double.POSITIVE_INFINITY));
+		}
+		
 		
 
 		while (!nextVisit.isEmpty()) {
@@ -49,9 +55,16 @@ public class DosDijkstraSearch<V> {
 
 			for (V next : neigbors.keySet()) {
 				if(!visited.contains(next)) {
-					nextVisit.add(new WeightedPathNode<V>(next, currentWeight
-							+ neigbors.get(next)));
-					parent.put(next, current);
+					WeightedPathNode nextWeightedPathNode = new WeightedPathNode<V>(next, currentWeight);
+					nextWeightedPathNode = allNodes.get(allNodes.indexOf(nextWeightedPathNode));
+					if((neigbors.get(next) + currentWeight) <nextWeightedPathNode.getWeight() ) {
+						nextWeightedPathNode.setWeight(neigbors.get(next) + currentWeight);
+						nextVisit.add(nextWeightedPathNode);
+						if(parent.containsKey(next)) {
+							parent.remove(next);
+						}
+						parent.put(next, current);
+					}
 				}
 			}			
 		}
@@ -68,40 +81,4 @@ public class DosDijkstraSearch<V> {
 
 		return path;
 	}
-}
-
-class WeightedPathNode<V> implements Comparable<WeightedPathNode<V>> {
-	V node;
-	double weight;
-
-	public WeightedPathNode(V node, double weight) {
-		super();
-		this.node = node;
-		this.weight = weight;
-	}
-
-	public int compareTo(WeightedPathNode<V> o) {
-		return Double.valueOf(this.weight).compareTo(o.weight);
-	}
-
-	public V getNode() {
-		return node;
-	}
-
-	public void setNode(V node) {
-		this.node = node;
-	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-	
-	public String toString() {
-		return "(" +  node + "," + weight + ")";
-	}
-
 }

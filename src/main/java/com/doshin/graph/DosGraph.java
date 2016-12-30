@@ -33,16 +33,6 @@ public class DosGraph<V> {
 
 	}
 
-	public Map<V, Double> getNeigbors(V vertex) {
-		Set<DosEdge<V>> startEdge = graph.get(vertex);
-		Map<V, Double> adjacentVertices = new HashMap<V, Double>();
-		for (DosEdge<V> edge : startEdge) {
-			adjacentVertices.put(edge.getVertex(),
-					Double.valueOf(edge.getWeight()));
-		}
-		return adjacentVertices;
-	}
-
 	private void addOneSideArc(V start, V end, double weight) {
 
 		if (!graph.containsKey(start)) {
@@ -58,6 +48,20 @@ public class DosGraph<V> {
 			graph.put(start, startEdge);
 		}
 	}
+	
+	public Map<V, Double> getNeigbors(V vertex) {
+		Set<DosEdge<V>> startEdge = graph.get(vertex);
+		Map<V, Double> adjacentVertices = new HashMap<V, Double>();
+		for (DosEdge<V> edge : startEdge) {
+			adjacentVertices.put(edge.getVertex(),
+					Double.valueOf(edge.getWeight()));
+		}
+		return adjacentVertices;
+	}
+	
+	public Set<V> getAllNodes() {
+		return graph.keySet();
+	}
 
 	public String toString() {
 		String s = "";
@@ -71,3 +75,5 @@ public class DosGraph<V> {
 	}
 
 }
+
+
